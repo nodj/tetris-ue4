@@ -6,12 +6,19 @@ public class Tetris_Game : ModuleRules
 {
 	public Tetris_Game(ReadOnlyTargetRules Target) : base(Target)
 	{
-//         OptimizeCode = 
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(
+        OptimizeCode = CodeOptimization.Never;
+        bFasterWithoutUnity = true;
+        PCHUsage = PCHUsageMode.NoPCHs;
+
+        PublicDependencyModuleNames.AddRange(
             new string[] {
-                "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay"
+                "Core", 
+				"CoreUObject", 
+				"Engine", 
+				"InputCore", 
+				"HeadMountedDisplay",
             }
         );
 	}
