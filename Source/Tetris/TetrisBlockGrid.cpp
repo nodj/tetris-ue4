@@ -31,8 +31,9 @@ ATetrisBlockGrid::ATetrisBlockGrid()
 
 	// Create static mesh component
 	ScoreText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("ScoreText0"));
-	ScoreText->SetRelativeLocation(FVector(0.f,0.f,0.f));
-	ScoreText->SetRelativeRotation(FRotator(90.f,0.f,0.f));
+	ScoreText->SetRelativeLocation(FVector(-200.f,-200.f,0.f));
+	ScoreText->SetRelativeRotation(FRotator(90.f, 180.f, 0.f));
+	ScoreText->SetRelativeScale3D(FVector(5.0f));
 	ScoreText->SetupAttachment(DummyRoot);
 	UpdateText();
 }
@@ -69,11 +70,29 @@ void ATetrisBlockGrid::BeginPlay()
 	}
 }
 
-
+#if WITH_EDITOR
 void ATetrisBlockGrid::Tick(float DeltaSeconds)
 {
-	DrawDebugSphere(GetWorld(), FVector(20, 30, 40), 50, Width, FColor::Cyan);
+	if (GIsPlayInEditorWorld)
+	{
+		return;
+	}
+
+	const float CenterOffset = -0.5f * (Width - 1) * BlockSpacing;
+	for (int32 BlockI = 0; BlockI < Width; ++BlockI)
+	{
+		for (int32 BlockJ = 0; BlockJ < Height; ++BlockJ)
+		{
+			const float YOffset = CenterOffset + BlockI * BlockSpacing;
+			const float XOffset = BlockJ * BlockSpacing;
+
+			// Make position vector, offset from Grid location
+			const FVector BlockLocation = FVector(XOffset, YOffset, 0.f) + GetActorLocation();
+			DrawDebugBox(GetWorld(), BlockLocation, FVector(40.0f), FColor::Cyan);
+		}
+	}
 }
+#endif
 
 void ATetrisBlockGrid::AddScore()
 {

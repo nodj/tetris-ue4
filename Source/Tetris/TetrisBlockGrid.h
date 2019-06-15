@@ -28,7 +28,7 @@ public:
 	ATetrisBlockGrid();
 
 	/** How many blocks have been clicked */
-	int32 Score;
+	int32 Score = 0;
 	
 	/** Width of the grid */
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
@@ -40,13 +40,15 @@ public:
 
 	/** Spacing of blocks */
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
-	float BlockSpacing;
+	float BlockSpacing = 300.0f;
 
 protected:
 	// Begin AActor interface
 	virtual void BeginPlay() override;
+#if WITH_EDITOR
 	virtual void Tick(float DeltaSeconds) override;
 	virtual bool ShouldTickIfViewportsOnly() const override { return true; }
+#endif
 	// End AActor interface
 
 public:
