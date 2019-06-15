@@ -78,3 +78,6 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Stuff versionned elsewhere
+Source/Tetris_Game/ThirdParty/*
