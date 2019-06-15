@@ -80,4 +80,4 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 # Stuff versionned elsewhere
-Source/Tetris_Game/ThirdParty/*
+Source/Tetris_Game/core
