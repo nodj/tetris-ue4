@@ -3,11 +3,11 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class Tetris_GameTarget : TargetRules
+public class TetrisTarget : TargetRules
 {
-    public Tetris_GameTarget(TargetInfo Target) : base(Target)
+    public TetrisTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-		ExtraModuleNames.Add("Tetris_Game");
+		ExtraModuleNames.Add("Tetris");
 	}
 }

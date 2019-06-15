@@ -1,8 +1,8 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
-#include "Tetris_GameBlock.h"
+#include "TetrisBlock.h"
 
-#include "Tetris_GameBlockGrid.h"
+#include "TetrisBlockGrid.h"
 
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -18,7 +18,7 @@ U* FindAsset(const TCHAR* Path, bool bAssert=true)
 	return Ref.Object;
 }
 
-ATetris_GameBlock::ATetris_GameBlock()
+ATetrisBlock::ATetrisBlock()
 	: TargetIntensity{0}
 	, CurrentIntensity{0}
 {
@@ -46,26 +46,26 @@ ATetris_GameBlock::ATetris_GameBlock()
 	BlockMesh->SetRelativeLocation(FVector(0.f,0.f,25.f));
 	BlockMesh->SetupAttachment(DummyRoot);
 	BlockMesh->SetMaterial(0, LedMaterial);
-	BlockMesh->OnClicked.AddDynamic(this, &ATetris_GameBlock::BlockClicked);
-	BlockMesh->OnInputTouchBegin.AddDynamic(this, &ATetris_GameBlock::OnFingerPressedBlock);
+	BlockMesh->OnClicked.AddDynamic(this, &ATetrisBlock::BlockClicked);
+	BlockMesh->OnInputTouchBegin.AddDynamic(this, &ATetrisBlock::OnFingerPressedBlock);
 
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bTickEvenWhenPaused = true;
 	PrimaryActorTick.TickGroup = TG_PrePhysics;
 }
 
-void ATetris_GameBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
+void ATetrisBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
 	HandleClicked();
 }
 
 
-void ATetris_GameBlock::OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent)
+void ATetrisBlock::OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent)
 {
 	HandleClicked();
 }
 
-void ATetris_GameBlock::HandleClicked()
+void ATetrisBlock::HandleClicked()
 {
 	ClickCount++;
 	ClickCount = ClickCount % 10;
@@ -81,19 +81,19 @@ void ATetris_GameBlock::HandleClicked()
 	}
 }
 
-void ATetris_GameBlock::Highlight(bool bOn)
+void ATetrisBlock::Highlight(bool bOn)
 {
 	bIsHighlighted = bOn;
 	TargetIntensity = bOn ? 100 : 0;
 }
 
-void ATetris_GameBlock::UpdateMaterial()
+void ATetrisBlock::UpdateMaterial()
 {
 	float Intensity = CurrentIntensity + 50 * bIsHighlighted;
 	LedMaterial->SetScalarParameterByIndex(FaceIntensityParamIndex, Intensity);
 }
 
-void ATetris_GameBlock::Tick(float DeltaSeconds)
+void ATetrisBlock::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 

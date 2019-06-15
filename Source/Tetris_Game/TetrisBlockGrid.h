@@ -7,12 +7,12 @@
 #include "UniquePtr.h"
 #include "core/details/Board.h"
 
-#include "Tetris_GameBlockGrid.generated.h"
+#include "TetrisBlockGrid.generated.h"
 
 
 /** Class used to spawn blocks and manage score */
 UCLASS(minimalapi)
-class ATetris_GameBlockGrid : public AActor
+class ATetrisBlockGrid : public AActor
 {
 	GENERATED_BODY()
 
@@ -25,14 +25,18 @@ class ATetris_GameBlockGrid : public AActor
 	class UTextRenderComponent* ScoreText;
 
 public:
-	ATetris_GameBlockGrid();
+	ATetrisBlockGrid();
 
 	/** How many blocks have been clicked */
 	int32 Score;
-
-	/** Number of blocks along each side of grid */
+	
+	/** Width of the grid */
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
-	int32 Size;
+	int32 Width = 10;
+
+	/** Height of the grid */
+	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
+	int32 Height = 22;
 
 	/** Spacing of blocks */
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
@@ -41,19 +45,19 @@ public:
 protected:
 	// Begin AActor interface
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
+	virtual bool ShouldTickIfViewportsOnly() const override { return true; }
 	// End AActor interface
 
 public:
-
 	/** Handle the block being clicked */
 	void AddScore();
 
+private:
 	void UpdateText();
 
-	/** Returns DummyRoot subobject **/
-	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
-	/** Returns ScoreText subobject **/
-	FORCEINLINE class UTextRenderComponent* GetScoreText() const { return ScoreText; }
+private:
+	TUniquePtr<tc::Board> Board;
 };
 
 

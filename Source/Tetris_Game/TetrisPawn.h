@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Tetris_GamePawn.generated.h"
+#include "TetrisPawn.generated.h"
 
 UCLASS(config=Game)
-class ATetris_GamePawn : public APawn
+class ATetrisPawn : public APawn
 {
 	GENERATED_UCLASS_BODY()
 
@@ -25,5 +25,5 @@ protected:
 	void TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers);
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
-	class ATetris_GameBlock* CurrentBlockFocus;
+	class ATetrisBlock* CurrentBlockFocus;
 };

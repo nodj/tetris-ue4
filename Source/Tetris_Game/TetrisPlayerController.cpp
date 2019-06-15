@@ -1,8 +1,8 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
-#include "Tetris_GamePlayerController.h"
+#include "TetrisPlayerController.h"
 
-ATetris_GamePlayerController::ATetris_GamePlayerController()
+ATetrisPlayerController::ATetrisPlayerController()
 {
 	bShowMouseCursor = true;
 	bEnableClickEvents = true;

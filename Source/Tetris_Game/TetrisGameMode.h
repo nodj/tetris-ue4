@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Tetris_GameGameMode.generated.h"
+#include "TetrisGameMode.generated.h"
 
 /** GameMode class to specify pawn and playercontroller */
 UCLASS(minimalapi)
-class ATetris_GameGameMode : public AGameModeBase
+class ATetrisGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
-	ATetris_GameGameMode();
+	ATetrisGameMode();
 };
 
 

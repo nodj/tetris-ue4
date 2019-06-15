@@ -1,20 +1,20 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
-#include "Tetris_GamePawn.h"
-#include "Tetris_GameBlock.h"
+#include "TetrisPawn.h"
+#include "TetrisBlock.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 
-ATetris_GamePawn::ATetris_GamePawn(const FObjectInitializer& ObjectInitializer) 
+ATetrisPawn::ATetrisPawn(const FObjectInitializer& ObjectInitializer) 
 	: Super(ObjectInitializer)
 {
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
-void ATetris_GamePawn::Tick(float DeltaSeconds)
+void ATetrisPawn::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
@@ -39,27 +39,27 @@ void ATetris_GamePawn::Tick(float DeltaSeconds)
 	}
 }
 
-void ATetris_GamePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ATetrisPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("OnResetVR", EInputEvent::IE_Pressed, this, &ATetris_GamePawn::OnResetVR);
-	PlayerInputComponent->BindAction("TriggerClick", EInputEvent::IE_Pressed, this, &ATetris_GamePawn::TriggerClick);
+	PlayerInputComponent->BindAction("OnResetVR", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnResetVR);
+	PlayerInputComponent->BindAction("TriggerClick", EInputEvent::IE_Pressed, this, &ATetrisPawn::TriggerClick);
 }
 
-void ATetris_GamePawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)
+void ATetrisPawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)
 {
 	Super::CalcCamera(DeltaTime, OutResult);
 
 	OutResult.Rotation = FRotator(-90.0f, -90.0f, 0.0f);
 }
 
-void ATetris_GamePawn::OnResetVR()
+void ATetrisPawn::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
-void ATetris_GamePawn::TriggerClick()
+void ATetrisPawn::TriggerClick()
 {
 	if (CurrentBlockFocus)
 	{
@@ -67,7 +67,7 @@ void ATetris_GamePawn::TriggerClick()
 	}
 }
 
-void ATetris_GamePawn::TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers)
+void ATetrisPawn::TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers)
 {
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility);
@@ -78,7 +78,7 @@ void ATetris_GamePawn::TraceForBlock(const FVector& Start, const FVector& End, b
 	}
 	if (HitResult.Actor.IsValid())
 	{
-		ATetris_GameBlock* HitBlock = Cast<ATetris_GameBlock>(HitResult.Actor.Get());
+		ATetrisBlock* HitBlock = Cast<ATetrisBlock>(HitResult.Actor.Get());
 		if (CurrentBlockFocus != HitBlock)
 		{
 			if (CurrentBlockFocus)

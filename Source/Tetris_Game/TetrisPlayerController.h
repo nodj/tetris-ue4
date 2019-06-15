@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "Tetris_GamePlayerController.generated.h"
+#include "TetrisPlayerController.generated.h"
 
 /** PlayerController class used to enable cursor */
 UCLASS()
-class ATetris_GamePlayerController : public APlayerController
+class ATetrisPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
 public:
-	ATetris_GamePlayerController();
+	ATetrisPlayerController();
 };
 
 

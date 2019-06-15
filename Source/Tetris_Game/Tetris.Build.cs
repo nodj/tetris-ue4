@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class Tetris_Game : ModuleRules
+public class Tetris : ModuleRules
 {
-	public Tetris_Game(ReadOnlyTargetRules Target) : base(Target)
+	public Tetris(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 

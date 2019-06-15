@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Tetris_GameBlock.generated.h"
+#include "TetrisBlock.generated.h"
 
 /** A block that can be clicked */
 UCLASS(minimalapi)
-class ATetris_GameBlock : public AActor
+class ATetrisBlock : public AActor
 {
 	GENERATED_BODY()
 
@@ -21,7 +21,7 @@ class ATetris_GameBlock : public AActor
 	class UStaticMeshComponent* BlockMesh;
 
 public:
-	ATetris_GameBlock();
+	ATetrisBlock();
 
 	/** Are we currently active? */
 	bool bIsActive;
@@ -32,7 +32,7 @@ public:
 
 	/** Grid that owns us */
 	UPROPERTY()
-	class ATetris_GameBlockGrid* OwningGrid;
+	class ATetrisBlockGrid* OwningGrid;
 
 	/** Handle the block being clicked */
 	UFUNCTION()

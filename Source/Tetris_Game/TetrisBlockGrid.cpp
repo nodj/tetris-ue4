@@ -1,8 +1,8 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
-#include "Tetris_GameBlockGrid.h"
+#include "TetrisBlockGrid.h"
 
-#include "Tetris_GameBlock.h"
+#include "TetrisBlock.h"
 
 
 #include "Components/TextRenderComponent.h"
@@ -16,7 +16,7 @@
 #endif
 
 
-ATetris_GameBlockGrid::ATetris_GameBlockGrid()
+ATetrisBlockGrid::ATetrisBlockGrid()
 	:Board()
 {
 #if WITH_EDITOR
@@ -37,7 +37,7 @@ ATetris_GameBlockGrid::ATetris_GameBlockGrid()
 	UpdateText();
 }
 
-void ATetris_GameBlockGrid::BeginPlay()
+void ATetrisBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -47,7 +47,6 @@ void ATetris_GameBlockGrid::BeginPlay()
 	Height = Board->GetHeight();
 
 	const float CenterOffset = -0.5f * (Width-1) * BlockSpacing;
-
 	for (int32 BlockI = 0; BlockI < Width; ++BlockI)
 	{
 		for (int32 BlockJ = 0; BlockJ < Height; ++BlockJ)
@@ -59,7 +58,7 @@ void ATetris_GameBlockGrid::BeginPlay()
 			const FVector BlockLocation = FVector(XOffset, YOffset, 0.f) + GetActorLocation();
 
 			// Spawn a block
-			ATetris_GameBlock* NewBlock = GetWorld()->SpawnActor<ATetris_GameBlock>(BlockLocation, FRotator(0,0,0));
+			ATetrisBlock* NewBlock = GetWorld()->SpawnActor<ATetrisBlock>(BlockLocation, FRotator(0,0,0));
 
 			// Tell the block about its owner
 			if (NewBlock != nullptr)
@@ -71,12 +70,12 @@ void ATetris_GameBlockGrid::BeginPlay()
 }
 
 
-void ATetris_GameBlockGrid::Tick(float DeltaSeconds)
+void ATetrisBlockGrid::Tick(float DeltaSeconds)
 {
 	DrawDebugSphere(GetWorld(), FVector(20, 30, 40), 50, Width, FColor::Cyan);
 }
 
-void ATetris_GameBlockGrid::AddScore()
+void ATetrisBlockGrid::AddScore()
 {
 	// Increment score
 	Score++;
@@ -84,7 +83,7 @@ void ATetris_GameBlockGrid::AddScore()
 	UpdateText();
 }
 
-void ATetris_GameBlockGrid::UpdateText()
+void ATetrisBlockGrid::UpdateText()
 {
 	ScoreText->SetText(FText::Format(LOCTEXT("ScoreFmt", "Score: {0}"), FText::AsNumber(Score)));
 }
