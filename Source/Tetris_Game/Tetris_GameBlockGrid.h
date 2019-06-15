@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UniquePtr.h"
+#include "core/details/Board.h"
+
 #include "Tetris_GameBlockGrid.generated.h"
+
 
 /** Class used to spawn blocks and manage score */
 UCLASS(minimalapi)

@@ -1,11 +1,14 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "Tetris_GameBlock.h"
+
 #include "Tetris_GameBlockGrid.h"
-#include "UObject/ConstructorHelpers.h"
+
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "UObject/ConstructorHelpers.h"
 
 template<typename U>
 U* FindAsset(const TCHAR* Path, bool bAssert=true)
@@ -20,9 +23,9 @@ ATetris_GameBlock::ATetris_GameBlock()
 	, CurrentIntensity{0}
 {
 	// Structure to hold one-time initialization
-	static auto PlaneMeshRef      = FindAsset<UStaticMesh>      (TEXT("/Game/Puzzle/Meshes/PuzzleCube.PuzzleCube"));
-	static auto BaseMaterialRef   = FindAsset<UMaterial>        (TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"));
-	static auto LedMaterialRef    = FindAsset<UMaterialInstance>(TEXT("/Game/Materials/LedBlockOn.LedBlockOn"));
+	static auto CubeMeshRef     = FindAsset<UStaticMesh>      (TEXT("/Game/Puzzle/Meshes/PuzzleCube.PuzzleCube"));
+	static auto BaseMaterialRef = FindAsset<UMaterial>        (TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"));
+	static auto LedMaterialRef  = FindAsset<UMaterialInstance>(TEXT("/Game/Materials/LedBlockOn.LedBlockOn"));
 
 	// Save a pointer to the orange material
 	HighlightMaterial = BaseMaterialRef;
@@ -38,7 +41,7 @@ ATetris_GameBlock::ATetris_GameBlock()
 
 	// Create static mesh component
 	BlockMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BlockMesh0"));
-	BlockMesh->SetStaticMesh(PlaneMeshRef);
+	BlockMesh->SetStaticMesh(CubeMeshRef);
 	BlockMesh->SetRelativeScale3D(0.3f*FVector(1.f,1.f,0.25f));
 	BlockMesh->SetRelativeLocation(FVector(0.f,0.f,25.f));
 	BlockMesh->SetupAttachment(DummyRoot);
