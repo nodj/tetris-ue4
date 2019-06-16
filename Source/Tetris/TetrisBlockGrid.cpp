@@ -4,20 +4,20 @@
 
 #include "TetrisBlock.h"
 
+#include "core/modes/GameModeStandard.h"
 
 #include "Components/TextRenderComponent.h"
-#include "Engine/World.h"
 #include "ConstructorHelpers.h"
-
-#define LOCTEXT_NAMESPACE "PuzzleBlockGrid"
-
+#include "Engine/World.h"
 #if WITH_EDITOR
 #include "DrawDebugHelpers.h"
 #endif
 
 
+#define LOCTEXT_NAMESPACE "PuzzleBlockGrid"
+
+
 ATetrisBlockGrid::ATetrisBlockGrid()
-	:Board()
 {
 #if WITH_EDITOR
 	PrimaryActorTick.bCanEverTick = true;
@@ -42,10 +42,10 @@ void ATetrisBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Board.Reset(new tc::Board(Width, Height));
-
-	Width = Board->GetWidth();
-	Height = Board->GetHeight();
+	const tc::StandardGameMode& Game = Tetris.SetupStandardMode(Width, Height);
+	const tc::Board& GameBoard = Game.GetBoard();
+	Width = GameBoard.GetWidth();
+	Height = GameBoard.GetHeight();
 
 	const float CenterOffset = -0.5f * (Width-1) * BlockSpacing;
 	for (int32 BlockI = 0; BlockI < Width; ++BlockI)
@@ -60,7 +60,7 @@ void ATetrisBlockGrid::BeginPlay()
 
 			// Spawn a block
 			ATetrisBlock* NewBlock = GetWorld()->SpawnActor<ATetrisBlock>(BlockLocation, FRotator(0,0,0));
-
+			NewBlock->SetCell(&GameBoard.At(BlockI, BlockJ));
 			// Tell the block about its owner
 			if (NewBlock != nullptr)
 			{
@@ -70,9 +70,11 @@ void ATetrisBlockGrid::BeginPlay()
 	}
 }
 
-#if WITH_EDITOR
 void ATetrisBlockGrid::Tick(float DeltaSeconds)
 {
+	Tetris.GetCurrentMode().Tick(DeltaSeconds);
+
+#if WITH_EDITOR
 	if (GIsPlayInEditorWorld)
 	{
 		return;
@@ -91,8 +93,8 @@ void ATetrisBlockGrid::Tick(float DeltaSeconds)
 			DrawDebugBox(GetWorld(), BlockLocation, FVector(40.0f), FColor::Cyan);
 		}
 	}
-}
 #endif
+}
 
 void ATetrisBlockGrid::AddScore()
 {

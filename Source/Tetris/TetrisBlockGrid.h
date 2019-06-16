@@ -2,16 +2,17 @@
 
 #pragma once
 
+#include "core/TetrisHost.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "UniquePtr.h"
-#include "core/details/Board.h"
 
 #include "TetrisBlockGrid.generated.h"
 
 
 /** Class used to spawn blocks and manage score */
-UCLASS(minimalapi)
+UCLASS(MinimalAPI)
 class ATetrisBlockGrid : public AActor
 {
 	GENERATED_BODY()
@@ -29,7 +30,7 @@ public:
 
 	/** How many blocks have been clicked */
 	int32 Score = 0;
-	
+
 	/** Width of the grid */
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
 	int32 Width = 10;
@@ -43,13 +44,14 @@ public:
 	float BlockSpacing = 300.0f;
 
 protected:
-	// Begin AActor interface
+	/// Begin AActor interface
 	virtual void BeginPlay() override;
-#if WITH_EDITOR
+
 	virtual void Tick(float DeltaSeconds) override;
+
+	// allow tick in real time rendering in editor
 	virtual bool ShouldTickIfViewportsOnly() const override { return true; }
-#endif
-	// End AActor interface
+	/// End AActor interface
 
 public:
 	/** Handle the block being clicked */
@@ -59,7 +61,7 @@ private:
 	void UpdateText();
 
 private:
-	TUniquePtr<tc::Board> Board;
+	tc::TetrisHost Tetris;
 };
 
 

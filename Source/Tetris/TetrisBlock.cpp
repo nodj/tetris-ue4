@@ -9,6 +9,7 @@
 #include "Materials/MaterialInstance.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "UObject/ConstructorHelpers.h"
+#include "core/details/Board.h"
 
 template<typename U>
 U* FindAsset(const TCHAR* Path, bool bAssert=true)
@@ -19,8 +20,14 @@ U* FindAsset(const TCHAR* Path, bool bAssert=true)
 }
 
 ATetrisBlock::ATetrisBlock()
-	: TargetIntensity{0}
-	, CurrentIntensity{0}
+	: bIsActive(false)
+	, LedMaterial(nullptr)
+	, FaceIntensityParamIndex(INDEX_NONE)
+	, ClickCount(0)
+	, bIsHighlighted(false)
+	, TargetIntensity(0)
+	, CurrentIntensity(0)
+	, ReferredCell(nullptr)
 {
 	// Structure to hold one-time initialization
 	static auto CubeMeshRef     = FindAsset<UStaticMesh>      (TEXT("/Game/Puzzle/Meshes/PuzzleCube.PuzzleCube"));
@@ -95,14 +102,22 @@ void ATetrisBlock::UpdateMaterial()
 
 void ATetrisBlock::Tick(float DeltaSeconds)
 {
+	assert(false);
 	Super::Tick(DeltaSeconds);
 
-	// update time dependant state
-	float ChangeSpeed = 60 * DeltaSeconds * (bIsActive ? 1.0f : 0.2f);
+	const tc::Cell& Model = ReferredCell ? *ReferredCell : tc::Cell{};
 
-	float Diff = TargetIntensity - CurrentIntensity;
-
-	CurrentIntensity += Diff * FMath::Clamp<float>(ChangeSpeed, 0, 1);
-
+// 	// update time dependent state
+// 	float ChangeSpeed = 60 * DeltaSeconds * (bIsActive ? 1.0f : 0.2f);
+//
+// 	float Diff = TargetIntensity - CurrentIntensity;
+//
+// 	CurrentIntensity += Diff * FMath::Clamp<float>(ChangeSpeed, 0, 1);
+	CurrentIntensity = Model.state * 100.0f;
 	UpdateMaterial();
+}
+
+void ATetrisBlock::SetCell(const tc::Cell* InReferredCell)
+{
+	ReferredCell = InReferredCell;
 }

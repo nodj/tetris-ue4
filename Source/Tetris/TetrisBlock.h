@@ -6,8 +6,11 @@
 #include "GameFramework/Actor.h"
 #include "TetrisBlock.generated.h"
 
+namespace tc { struct Cell; }
+
+
 /** A block that can be clicked */
-UCLASS(minimalapi)
+UCLASS(MinimalAPI)
 class ATetrisBlock : public AActor
 {
 	GENERATED_BODY()
@@ -22,10 +25,6 @@ class ATetrisBlock : public AActor
 
 public:
 	ATetrisBlock();
-
-	/** Are we currently active? */
-	bool bIsActive;
-
 	/** Pointer to white material used on the focused block */
 	UPROPERTY()
 	class UMaterial* HighlightMaterial;
@@ -42,29 +41,30 @@ public:
 	UFUNCTION()
 	void OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
 
+	virtual void Tick(float DeltaSeconds) override;
+
+	void SetCell(const tc::Cell* InReferredCell);
+
 	void HandleClicked();
 
 	void Highlight(bool bOn);
 
+private:
 	void UpdateMaterial();
 
-
-	virtual void Tick(float DeltaSeconds) override;
-
-public:
-	/** Returns DummyRoot subobject **/
-	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
-	/** Returns BlockMesh subobject **/
-	FORCEINLINE class UStaticMeshComponent* GetBlockMesh() const { return BlockMesh; }
-
 private:
-	bool bIsHighlighted = false;
-	int32 ClickCount = 0;
-	int32 FaceIntensityParamIndex = INDEX_NONE;
-	UMaterialInstanceDynamic* LedMaterial;
 
+	/** Are we currently active? */
+	bool bIsActive;
+
+	UMaterialInstanceDynamic* LedMaterial;
+	int32 FaceIntensityParamIndex;
+
+	int32 ClickCount;
+	bool bIsHighlighted;
 	float TargetIntensity;
 	float CurrentIntensity;
+	const tc::Cell* ReferredCell = nullptr;
 };
 
 
