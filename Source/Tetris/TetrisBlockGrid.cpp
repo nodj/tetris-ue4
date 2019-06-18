@@ -23,7 +23,7 @@ ATetrisBlockGrid::ATetrisBlockGrid()
 #if WITH_EDITOR
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
-	PrimaryActorTick.bTickEvenWhenPaused = true;
+// 	PrimaryActorTick.bTickEvenWhenPaused = true;
 #endif
 
 	// Create dummy root scene component

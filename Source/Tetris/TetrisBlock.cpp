@@ -36,8 +36,6 @@ ATetrisBlock::ATetrisBlock()
 
 	// Save a pointer to the orange material
 	HighlightMaterial = BaseMaterialRef;
-
-	// #tetris_todo store one instance of the mat: UTetrisGameInstance ?
 	LedMaterial = UMaterialInstanceDynamic::Create(LedMaterialRef, nullptr);
 	static const FName FaceIntensityParamName(TEXT("FaceIntensity"));
 	float FaceIntensityDefault = 0.0f;
@@ -103,7 +101,6 @@ void ATetrisBlock::UpdateMaterial()
 
 void ATetrisBlock::Tick(float DeltaSeconds)
 {
-	assert(false);
 	Super::Tick(DeltaSeconds);
 
 	const tc::Cell& Model = ReferredCell ? *ReferredCell : tc::Cell{};
