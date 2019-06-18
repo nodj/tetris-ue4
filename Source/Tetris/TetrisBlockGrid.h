@@ -4,6 +4,8 @@
 
 #include "core/TetrisHost.h"
 
+#include "core/modes/GameMode.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "UniquePtr.h"
@@ -56,6 +58,8 @@ protected:
 public:
 	/** Handle the block being clicked */
 	void AddScore();
+
+	void HandleInput(tc::EGameplayInput i);
 
 private:
 	void UpdateText();

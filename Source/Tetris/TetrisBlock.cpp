@@ -37,6 +37,7 @@ ATetrisBlock::ATetrisBlock()
 	// Save a pointer to the orange material
 	HighlightMaterial = BaseMaterialRef;
 
+	// #tetris_todo store one instance of the mat: UTetrisGameInstance ?
 	LedMaterial = UMaterialInstanceDynamic::Create(LedMaterialRef, nullptr);
 	static const FName FaceIntensityParamName(TEXT("FaceIntensity"));
 	float FaceIntensityDefault = 0.0f;

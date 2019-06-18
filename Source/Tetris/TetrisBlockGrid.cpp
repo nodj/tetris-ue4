@@ -3,6 +3,7 @@
 #include "TetrisBlockGrid.h"
 
 #include "TetrisBlock.h"
+#include "TetrisGameInstance.h"
 
 #include "core/modes/GameModeStandard.h"
 
@@ -41,6 +42,11 @@ ATetrisBlockGrid::ATetrisBlockGrid()
 void ATetrisBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (UTetrisGameInstance* GI = GetGameInstance<UTetrisGameInstance>())
+	{
+		GI->TheGrid = this;
+	}
 
 	const tc::StandardGameMode& Game = Tetris.SetupStandardMode(Width, Height);
 	const tc::Board& GameBoard = Game.GetBoard();
@@ -102,6 +108,11 @@ void ATetrisBlockGrid::AddScore()
 	Score++;
 
 	UpdateText();
+}
+
+void ATetrisBlockGrid::HandleInput(tc::EGameplayInput i)
+{
+	Tetris.GetCurrentMode().RegisterInput(i);
 }
 
 void ATetrisBlockGrid::UpdateText()
