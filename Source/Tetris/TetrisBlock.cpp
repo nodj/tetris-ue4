@@ -56,7 +56,6 @@ ATetrisBlock::ATetrisBlock()
 	BlockMesh->OnInputTouchBegin.AddDynamic(this, &ATetrisBlock::OnFingerPressedBlock);
 
 	PrimaryActorTick.bCanEverTick = true;
-	PrimaryActorTick.bTickEvenWhenPaused = true;
 	PrimaryActorTick.TickGroup = TG_PrePhysics;
 }
 
@@ -104,14 +103,14 @@ void ATetrisBlock::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	const tc::Cell& Model = ReferredCell ? *ReferredCell : tc::Cell{};
+	TargetIntensity = Model.state * 100.0f;
 
-// 	// update time dependent state
-// 	float ChangeSpeed = 60 * DeltaSeconds * (bIsActive ? 1.0f : 0.2f);
-//
-// 	float Diff = TargetIntensity - CurrentIntensity;
-//
-// 	CurrentIntensity += Diff * FMath::Clamp<float>(ChangeSpeed, 0, 1);
-	CurrentIntensity = Model.state * 100.0f;
+	// update time dependent state
+	float ChangeSpeed = 60 * DeltaSeconds * (bIsActive ? 1.0f : 0.35f);
+
+	float Diff = TargetIntensity - CurrentIntensity;
+
+	CurrentIntensity += Diff * FMath::Clamp<float>(ChangeSpeed, 0, 1);
 	UpdateMaterial();
 }
 

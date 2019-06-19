@@ -104,9 +104,7 @@ void ATetrisBlockGrid::Tick(float DeltaSeconds)
 
 void ATetrisBlockGrid::AddScore()
 {
-	// Increment score
 	Score++;
-
 	UpdateText();
 }
 
