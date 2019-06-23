@@ -21,5 +21,10 @@ public class Tetris : ModuleRules
 				"HeadMountedDisplay",
             }
         );
+
+        if (Target.bBuildEditor)
+        {
+            PrivateDependencyModuleNames.Add("UnrealEd");
+        }
     }
 }

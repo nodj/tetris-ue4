@@ -10,8 +10,12 @@
 #include "Components/TextRenderComponent.h"
 #include "ConstructorHelpers.h"
 #include "Engine/World.h"
+
 #if WITH_EDITOR
 #include "DrawDebugHelpers.h"
+#include "Editor/EditorEngine.h"
+#include "Editor/UnrealEdEngine.h"
+#include "UnrealEdGlobals.h"
 #endif
 
 
@@ -75,6 +79,17 @@ void ATetrisBlockGrid::BeginPlay()
 void ATetrisBlockGrid::Tick(float DeltaSeconds)
 {
 	Tetris.GetCurrentMode().Tick(DeltaSeconds);
+
+	// Game exit
+	if (Tetris.GetCurrentMode().IsOver())
+	{
+#if WITH_EDITOR
+		// RequestExit() ends the game loop. Including the Editor
+		GUnrealEd->RequestEndPlayMap();
+#else
+		FGenericPlatformMisc::RequestExit(false);
+#endif
+	}
 
 #if WITH_EDITOR
 	if (GIsPlayInEditorWorld)
