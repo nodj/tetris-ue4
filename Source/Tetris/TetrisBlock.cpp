@@ -20,10 +20,8 @@ U* FindAsset(const TCHAR* Path, bool bAssert=true)
 }
 
 ATetrisBlock::ATetrisBlock()
-	: bIsActive(false)
-	, LedMaterial(nullptr)
+	: LedMaterial(nullptr)
 	, FaceIntensityParamIndex(INDEX_NONE)
-	, ClickCount(0)
 	, bIsHighlighted(false)
 	, TargetIntensity(0)
 	, CurrentIntensity(0)
@@ -72,13 +70,6 @@ void ATetrisBlock::OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiv
 
 void ATetrisBlock::HandleClicked()
 {
-	ClickCount++;
-	ClickCount = ClickCount % 10;
-
-	bIsActive = !bIsActive;
-
-	TargetIntensity = bIsActive ? 100.0 : 0;
-
 	// Tell the Grid
 	if (OwningGrid != nullptr)
 	{
@@ -106,7 +97,7 @@ void ATetrisBlock::Tick(float DeltaSeconds)
 	TargetIntensity = Model.state * 100.0f;
 
 	// update time dependent state
-	float ChangeSpeed = 60 * DeltaSeconds * (bIsActive ? 1.0f : 0.35f);
+	float ChangeSpeed = 60 * DeltaSeconds * (Model.state ? 1.0f : 0.35f);
 
 	float Diff = TargetIntensity - CurrentIntensity;
 

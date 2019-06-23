@@ -53,14 +53,9 @@ private:
 	void UpdateMaterial();
 
 private:
-
-	/** Are we currently active? */
-	bool bIsActive;
-
 	UMaterialInstanceDynamic* LedMaterial;
 	int32 FaceIntensityParamIndex;
 
-	int32 ClickCount;
 	bool bIsHighlighted;
 	float TargetIntensity;
 	float CurrentIntensity;
