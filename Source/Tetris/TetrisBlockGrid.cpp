@@ -20,11 +20,7 @@
 
 ATetrisBlockGrid::ATetrisBlockGrid()
 {
-#if WITH_EDITOR
 	PrimaryActorTick.bCanEverTick = true;
-	PrimaryActorTick.bStartWithTickEnabled = true;
-// 	PrimaryActorTick.bTickEvenWhenPaused = true;
-#endif
 
 	// Create dummy root scene component
 	DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
