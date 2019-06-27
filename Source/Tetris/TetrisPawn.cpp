@@ -56,7 +56,6 @@ void ATetrisPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("MoveLeft", EInputEvent::IE_Released, this, &ATetrisPawn::OnMoveLeftReleased);
 	PlayerInputComponent->BindAction("MoveRight", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnMoveRightPressed);
 	PlayerInputComponent->BindAction("MoveRight", EInputEvent::IE_Released, this, &ATetrisPawn::OnMoveRightReleased);
-	PlayerInputComponent->BindAction("MoveRight", EInputEvent::IE_Repeat, this, &ATetrisPawn::OnMoveRightReleased);
 }
 
 void ATetrisPawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)
