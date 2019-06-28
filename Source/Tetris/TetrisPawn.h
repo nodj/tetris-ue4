@@ -33,6 +33,8 @@ protected:
 	void OnMoveLeftReleased() { DelegateEvent(tc::EGameplayInput::MoveLeftReleased); }
 	void OnMoveRightPressed() { DelegateEvent(tc::EGameplayInput::MoveRightPressed); }
 	void OnMoveRightReleased() { DelegateEvent(tc::EGameplayInput::MoveRightReleased); }
+	void OnMoveDownPressed() { DelegateEvent(tc::EGameplayInput::MoveDownPressed); }
+	void OnMoveDownReleased() { DelegateEvent(tc::EGameplayInput::MoveDownReleased); }
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
 	class ATetrisBlock* CurrentBlockFocus;

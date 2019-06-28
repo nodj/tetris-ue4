@@ -56,6 +56,8 @@ void ATetrisPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("MoveLeft", EInputEvent::IE_Released, this, &ATetrisPawn::OnMoveLeftReleased);
 	PlayerInputComponent->BindAction("MoveRight", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnMoveRightPressed);
 	PlayerInputComponent->BindAction("MoveRight", EInputEvent::IE_Released, this, &ATetrisPawn::OnMoveRightReleased);
+	PlayerInputComponent->BindAction("MoveDown", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnMoveDownPressed);
+	PlayerInputComponent->BindAction("MoveDown", EInputEvent::IE_Released, this, &ATetrisPawn::OnMoveDownReleased);
 
 	PlayerInputComponent->BindAction("Start", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnStartPressed);
 	PlayerInputComponent->BindAction("Select", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnSelectPressed);
