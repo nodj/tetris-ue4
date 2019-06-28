@@ -14,7 +14,6 @@ class ATetrisPawn : public APawn
 	GENERATED_UCLASS_BODY()
 
 public:
-
 	virtual void Tick(float DeltaSeconds) override;
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
@@ -24,14 +23,16 @@ public:
 protected:
 	void TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers);
 
+	void DelegateEvent(tc::EGameplayInput i);
+	void OnStartPressed() { DelegateEvent(tc::EGameplayInput::Start); }
+	void OnSelectPressed() { DelegateEvent(tc::EGameplayInput::Select); }
 	void OnRotateLeft() { DelegateEvent(tc::EGameplayInput::RotateLeft); }
 	void OnRotateRight() { DelegateEvent(tc::EGameplayInput::RotateRight); }
+	void OnHardDropPressed() { DelegateEvent(tc::EGameplayInput::HardDrop); }
 	void OnMoveLeftPressed() { DelegateEvent(tc::EGameplayInput::MoveLeftPressed); }
 	void OnMoveLeftReleased() { DelegateEvent(tc::EGameplayInput::MoveLeftReleased); }
 	void OnMoveRightPressed() { DelegateEvent(tc::EGameplayInput::MoveRightPressed); }
 	void OnMoveRightReleased() { DelegateEvent(tc::EGameplayInput::MoveRightReleased); }
-
-	void DelegateEvent(tc::EGameplayInput i);
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
 	class ATetrisBlock* CurrentBlockFocus;

@@ -56,6 +56,14 @@ void ATetrisPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("MoveLeft", EInputEvent::IE_Released, this, &ATetrisPawn::OnMoveLeftReleased);
 	PlayerInputComponent->BindAction("MoveRight", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnMoveRightPressed);
 	PlayerInputComponent->BindAction("MoveRight", EInputEvent::IE_Released, this, &ATetrisPawn::OnMoveRightReleased);
+
+	PlayerInputComponent->BindAction("Start", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnStartPressed);
+	PlayerInputComponent->BindAction("Select", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnSelectPressed);
+	PlayerInputComponent->BindAction("HardDrop", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHardDropPressed);
+
+// 	PlayerInputComponent->BindAction("Hold", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHardDropPressed);
+// 	PlayerInputComponent->BindAction("SoftDrop", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHardDropPressed);
+// 	PlayerInputComponent->BindAxis("MoveHzAxis", this, &ATetrisPawn::OnMoveHzAxis);
 }
 
 void ATetrisPawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)
@@ -78,9 +86,6 @@ void ATetrisPawn::DelegateEvent(tc::EGameplayInput i)
 
 void ATetrisPawn::TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers)
 {
-// 	GetWorld()->
-
-
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility);
 	if (bDrawDebugHelpers)
