@@ -95,19 +95,20 @@ void ATetrisBlock::UpdateMaterial()
 	LedMaterial->SetVectorParameterByIndex(LightColorParamIndex, TargetLightColor);
 }
 
-constexpr FLinearColor GetColorForNature(tc::EPiece nature)
+FLinearColor GetColorForNature(tc::EPiece nature)
 {
-	switch(nature)
-	{
-		case tc::EPiece::Piece_I: return FColor::Cyan;
-		case tc::EPiece::Piece_L: return FColor::Orange;
-		case tc::EPiece::Piece_J: return FColor::Blue;
-		case tc::EPiece::Piece_S: return FColor::Green;
-		case tc::EPiece::Piece_Z: return FColor::Red;
-		case tc::EPiece::Piece_O: return FColor::Yellow;
-		case tc::EPiece::Piece_T: return FColor::Purple;
-		default: return FColor::White;
-	}
+	static std::array<FLinearColor, 7> Colors = {
+		FColor::FromHex("2bb8e2"), // I 2bace2
+		FColor::FromHex("f89622"), // L
+		FColor::FromHex("1e4ca9"), // J 005a9d
+		FColor::FromHex("4eb748"), // S
+		FColor::FromHex("ee2733"), // Z
+		FColor::FromHex("fde100"), // O
+		FColor::FromHex("922b8c"), // T
+	};
+
+	uint8 NatureIndex = uint8(nature);
+	return NatureIndex < 7 ? Colors[NatureIndex] : FColor::White;
 }
 
 void ATetrisBlock::Tick(float DeltaSeconds)
@@ -115,7 +116,9 @@ void ATetrisBlock::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	const tc::Cell& Model = ReferredCell ? *ReferredCell : tc::Cell{};
-	TargetIntensity = Model.state ? Model.locked? 10.0f : 100.0f : 0.0f;
+	TargetIntensity = Model.state
+		? Model.locked ? 10.0f : 100.0f
+		: Model.phantom ? 1.0f : 0.0f;
 	if (Model.state || Model.phantom)
 		TargetLightColor = GetColorForNature(Model.nature);
 
