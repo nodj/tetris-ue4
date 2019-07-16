@@ -54,13 +54,13 @@ private:
 
 private:
 	UMaterialInstanceDynamic* LedMaterial;
+	const tc::Cell* ReferredCell;
 	int32 FaceIntensityParamIndex;
+	int32 LightColorParamIndex;
 
 	bool bIsHighlighted;
 	float TargetIntensity;
 	float CurrentIntensity;
-	const tc::Cell* ReferredCell = nullptr;
+	FLinearColor TargetLightColor;
 };
-
-
 
