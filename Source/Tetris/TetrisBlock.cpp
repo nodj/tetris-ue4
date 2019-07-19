@@ -95,32 +95,14 @@ void ATetrisBlock::UpdateMaterial()
 	LedMaterial->SetVectorParameterByIndex(LightColorParamIndex, TargetLightColor);
 }
 
-FLinearColor GetColorForNature(tc::EPiece nature)
-{
-	static std::array<FLinearColor, 7> Colors = {
-		FColor::FromHex("2bb8e2"), // I 2bace2
-		FColor::FromHex("f89622"), // L
-		FColor::FromHex("1e4ca9"), // J 005a9d
-		FColor::FromHex("4eb748"), // S
-		FColor::FromHex("ee2733"), // Z
-		FColor::FromHex("fde100"), // O
-		FColor::FromHex("922b8c"), // T
-	};
-
-	uint8 NatureIndex = uint8(nature);
-	return NatureIndex < 7 ? Colors[NatureIndex] : FColor::White;
-}
-
 void ATetrisBlock::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
 	const tc::Cell& Model = ReferredCell ? *ReferredCell : tc::Cell{};
-	TargetIntensity = Model.state
-		? Model.locked ? 10.0f : 100.0f
-		: Model.phantom ? 1.0f : 0.0f;
+	TargetIntensity = OwningGrid ? OwningGrid->GetIntensityForState(Model) : 1.0f;
 	if (Model.state || Model.phantom)
-		TargetLightColor = GetColorForNature(Model.nature);
+		TargetLightColor = OwningGrid ? OwningGrid->GetColorForNature(Model.nature) : FColor::White;
 
 	// update time dependent state
 	float ChangeSpeed = 60 * DeltaSeconds * (Model.state ? 1.0f : 0.35f);

@@ -45,6 +45,54 @@ public:
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
 	float BlockSpacing = 300.0f;
 
+	/** _ */
+	UPROPERTY(Category=Light, EditAnywhere)
+	float IntensityPhantom = 1.0f;
+
+	UPROPERTY(Category=Light, EditAnywhere)
+	float IntensityLocked = 10.0f;
+
+	UPROPERTY(Category=Light, EditAnywhere)
+	float IntensityMove = 100.0f;
+
+	float GetIntensityForState(tc::Cell Model)
+	{
+		return Model.state
+			? Model.locked ? IntensityLocked : IntensityMove
+			: Model.phantom ? IntensityPhantom : 0.0f;
+	}
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorDefault = FColor::White;
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorI = FColor::FromHex("2bb8e2"); // 2bace2
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorL = FColor::FromHex("f89622");
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorJ = FColor::FromHex("1e4ca9"); // 005a9d
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorS = FColor::FromHex("4eb748");
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorZ = FColor::FromHex("ee2733");
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorO = FColor::FromHex("fde100");
+
+	UPROPERTY(Category=Color, EditAnywhere)
+	FLinearColor ColorT = FColor::FromHex("922b8c");
+
+	FLinearColor GetColorForNature(tc::EPiece nature)
+	{
+		std::array<FLinearColor*, 7> Colors = { &ColorI, &ColorL, &ColorJ, &ColorS, &ColorZ, &ColorO, &ColorT };
+		uint8 NatureIndex = uint8(nature);
+		return NatureIndex < 7 ? *Colors[NatureIndex] : ColorDefault;
+	}
+
 protected:
 	/// Begin AActor interface
 	virtual void BeginPlay() override;
