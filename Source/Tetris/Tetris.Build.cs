@@ -12,6 +12,8 @@ public class Tetris : ModuleRules
         bFasterWithoutUnity = true;
         PCHUsage = PCHUsageMode.NoPCHs;
 
+        PrivateIncludePaths.Add("Tetris/core");
+
         PublicDependencyModuleNames.AddRange(
             new string[] {
                 "Core",
