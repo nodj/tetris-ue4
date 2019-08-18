@@ -8,11 +8,10 @@
 
 #include "core/modes/GameMode.h"
 
-#include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
-#include "GameFramework/PlayerController.h"
-#include "Engine/World.h"
 #include "DrawDebugHelpers.h"
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 
 
 ATetrisPawn::ATetrisPawn(const FObjectInitializer& ObjectInitializer)
@@ -27,22 +26,10 @@ void ATetrisPawn::Tick(float DeltaSeconds)
 
 	if (APlayerController* PC = Cast<APlayerController>(GetController()))
 	{
-		if (UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled())
-		{
-			if (UCameraComponent* OurCamera = PC->GetViewTarget()->FindComponentByClass<UCameraComponent>())
-			{
-				FVector Start = OurCamera->GetComponentLocation();
-				FVector End = Start + (OurCamera->GetComponentRotation().Vector() * 8000.0f);
-				TraceForBlock(Start, End, true);
-			}
-		}
-		else
-		{
-			FVector Start, Dir;
-			PC->DeprojectMousePositionToWorld(Start, Dir);
-			FVector End = Start + (Dir * 8000.0f);
-			TraceForBlock(Start, End, false);
-		}
+		FVector Start, Dir;
+		PC->DeprojectMousePositionToWorld(Start, Dir);
+		FVector End = Start + (Dir * 8000.0f);
+		TraceForBlock(Start, End, false);
 	}
 }
 

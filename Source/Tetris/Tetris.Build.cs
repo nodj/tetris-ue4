@@ -8,9 +8,9 @@ public class Tetris : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        OptimizeCode = CodeOptimization.Never;
-        bFasterWithoutUnity = true;
-        PCHUsage = PCHUsageMode.NoPCHs;
+//         OptimizeCode = CodeOptimization.Never;
+//         bFasterWithoutUnity = true;
+//         PCHUsage = PCHUsageMode.NoPCHs;
 
         PrivateIncludePaths.Add("Tetris/core");
 
@@ -20,7 +20,6 @@ public class Tetris : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"InputCore",
-				"HeadMountedDisplay",
             }
         );
 

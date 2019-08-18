@@ -1,3 +1,8 @@
+
+# Stuff versionned elsewhere
+Source/Tetris/core
+
+###########################################################
 # Visual Studio 2015 user specific files
 .vs/
 .vscode/
@@ -79,6 +84,3 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
-
-# Stuff versionned elsewhere
-Source/Tetris/core
