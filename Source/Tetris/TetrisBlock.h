@@ -25,9 +25,6 @@ class ATetrisBlock : public AActor
 
 public:
 	ATetrisBlock();
-	/** Pointer to white material used on the focused block */
-	UPROPERTY()
-	class UMaterial* HighlightMaterial;
 
 	/** Grid that owns us */
 	UPROPERTY()

@@ -30,11 +30,9 @@ ATetrisBlock::ATetrisBlock()
 {
 	// Structure to hold one-time initialization
 	static auto CubeMeshRef = FindAsset<UStaticMesh>(TEXT("/Game/Puzzle/Meshes/PuzzleCube.PuzzleCube"));
-	static auto BaseMaterialRef = FindAsset<UMaterial>(TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"));
 	static auto LedMaterialRef = FindAsset<UMaterialInstance>(TEXT("/Game/Materials/LedBlockOn.LedBlockOn"));
 
 	// Save a pointer to the orange material
-	HighlightMaterial = BaseMaterialRef;
 	LedMaterial = UMaterialInstanceDynamic::Create(LedMaterialRef, nullptr);
 	static const FName FaceIntensityParamName("FaceIntensity");
 	static const FName LightColorParamName("LightColor");
