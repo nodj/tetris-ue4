@@ -78,7 +78,7 @@ public:
 	}
 
 	UPROPERTY(Category=Color, EditAnywhere)
-	FLinearColor ColorDefault = FColor::White;
+	FLinearColor ColorDefault = FColor::FromHex("FFE1AA");
 
 	UPROPERTY(Category=Color, EditAnywhere)
 	FLinearColor ColorI = FColor::FromHex("2bb8e2"); // 2bace2
