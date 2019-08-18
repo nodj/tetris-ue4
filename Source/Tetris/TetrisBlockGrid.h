@@ -12,6 +12,17 @@
 
 #include "TetrisBlockGrid.generated.h"
 
+USTRUCT(BlueprintType)
+struct FTetrisStats
+{
+	GENERATED_BODY()
+
+	UPROPERTY(Category=Score, BlueprintReadOnly)
+	int32 LineCount = 0;
+
+	UPROPERTY(Category=Score, BlueprintReadOnly)
+	int32 Level = 0;
+};
 
 /** Class used to spawn blocks and manage score */
 UCLASS(MinimalAPI)
@@ -31,7 +42,11 @@ public:
 	ATetrisBlockGrid();
 
 	/** How many blocks have been clicked */
+	UPROPERTY(Category=Score, BlueprintReadOnly)
 	int32 Score = 0;
+
+	UPROPERTY(Category=Score, BlueprintReadOnly)
+	FTetrisStats Stats;
 
 	/** Width of the grid */
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
@@ -114,6 +129,7 @@ private:
 
 private:
 	tc::TetrisHost Tetris;
+	std::shared_ptr<tc::StandardGameMode> StdGameMode = nullptr;
 };
 
 

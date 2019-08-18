@@ -9,5 +9,7 @@ public class TetrisTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		ExtraModuleNames.Add("Tetris");
-	}
+
+        bUseUnityBuild = true;
+    }
 }

@@ -48,7 +48,8 @@ void ATetrisBlockGrid::BeginPlay()
 		GI->TheGrid = this;
 	}
 
-	const tc::StandardGameMode& Game = Tetris.SetupStandardMode(Width, Height);
+	StdGameMode = Tetris.SetupStandardMode(Width, Height);
+	tc::StandardGameMode& Game = *StdGameMode;
 	const tc::Board& GameBoard = Game.GetBoard();
 	Width = GameBoard.GetWidth();
 	Height = GameBoard.GetHeight();
@@ -78,10 +79,20 @@ void ATetrisBlockGrid::BeginPlay()
 
 void ATetrisBlockGrid::Tick(float DeltaSeconds)
 {
-	Tetris.GetCurrentMode().Tick(DeltaSeconds);
+	if (StdGameMode)
+	{
+		StdGameMode->Tick(DeltaSeconds);
+
+		// Update stats
+		if (StdGameMode->IsInPlayMode())
+		{
+			Stats.LineCount = StdGameMode->GetLineCount();
+			Stats.Level = StdGameMode->GetLevel();
+		}
+	}
 
 	// Game exit
-	if (Tetris.GetCurrentMode().IsOver())
+	if (StdGameMode == nullptr || StdGameMode->IsOver())
 	{
 #if WITH_EDITOR
 		// RequestExit() ends the game loop. Including the Editor
@@ -121,7 +132,7 @@ void ATetrisBlockGrid::AddScore()
 
 void ATetrisBlockGrid::HandleInput(tc::EGameplayInput i)
 {
-	Tetris.GetCurrentMode().RegisterInput(i);
+	Tetris.GetCurrentMode()->RegisterInput(i);
 }
 
 void ATetrisBlockGrid::UpdateText()
