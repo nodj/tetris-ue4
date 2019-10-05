@@ -22,6 +22,9 @@ struct FTetrisStats
 
 	UPROPERTY(Category=Score, BlueprintReadOnly)
 	int32 Level = 0;
+
+	UPROPERTY(Category=Score, BlueprintReadOnly)
+	int32 Score = 0;
 };
 
 /** Class used to spawn blocks and manage score */

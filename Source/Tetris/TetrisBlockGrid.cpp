@@ -86,8 +86,10 @@ void ATetrisBlockGrid::Tick(float DeltaSeconds)
 		// Update stats
 		if (StdGameMode->IsInPlayMode())
 		{
-			Stats.LineCount = StdGameMode->GetLineCount();
-			Stats.Level = StdGameMode->GetLevel();
+			const tc::BasicGameStats& InternalStats = StdGameMode->GetBasicStats();
+			Stats.LineCount = InternalStats.Lines;
+			Stats.Level = InternalStats.Level;
+			Stats.Score = InternalStats.Score;
 		}
 	}
 
