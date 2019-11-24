@@ -49,9 +49,8 @@ void ATetrisPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("Start", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnStartPressed);
 	PlayerInputComponent->BindAction("Select", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnSelectPressed);
 	PlayerInputComponent->BindAction("HardDrop", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHardDropPressed);
+	PlayerInputComponent->BindAction("Hold", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHoldPressed);
 
-// 	PlayerInputComponent->BindAction("Hold", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHardDropPressed);
-// 	PlayerInputComponent->BindAction("SoftDrop", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHardDropPressed);
 // 	PlayerInputComponent->BindAxis("MoveHzAxis", this, &ATetrisPawn::OnMoveHzAxis);
 }
 

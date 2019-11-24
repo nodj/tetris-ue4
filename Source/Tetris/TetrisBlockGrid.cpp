@@ -8,7 +8,7 @@
 #include "core/modes/GameModeStandard.h"
 
 #include "Components/TextRenderComponent.h"
-#include "ConstructorHelpers.h"
+#include "UObject/ConstructorHelpers.h"
 #include "Engine/World.h"
 
 #if WITH_EDITOR

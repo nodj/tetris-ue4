@@ -29,6 +29,7 @@ protected:
 	void OnRotateLeft() { DelegateEvent(tc::EGameplayInput::RotateLeft); }
 	void OnRotateRight() { DelegateEvent(tc::EGameplayInput::RotateRight); }
 	void OnHardDropPressed() { DelegateEvent(tc::EGameplayInput::HardDrop); }
+	void OnHoldPressed() { DelegateEvent(tc::EGameplayInput::Hold); }
 	void OnMoveLeftPressed() { DelegateEvent(tc::EGameplayInput::MoveLeftPressed); }
 	void OnMoveLeftReleased() { DelegateEvent(tc::EGameplayInput::MoveLeftReleased); }
 	void OnMoveRightPressed() { DelegateEvent(tc::EGameplayInput::MoveRightPressed); }
