@@ -29,7 +29,7 @@ ATetrisBlock::ATetrisBlock()
 	, TargetLightColor(0.0f, 0.0f, 0.0f)
 {
 	// Structure to hold one-time initialization
-	static auto CubeMeshRef = FindAsset<UStaticMesh>(TEXT("/Game/Puzzle/Meshes/PuzzleCube.PuzzleCube"));
+	static auto CubeMeshRef = FindAsset<UStaticMesh>(TEXT("/Game/Geometry/Meshes/1M_Cube_Chamfer.1M_Cube_Chamfer"));
 	static auto LedMaterialRef = FindAsset<UMaterialInstance>(TEXT("/Game/Materials/LedBlockOn.LedBlockOn"));
 
 	// Save a pointer to the orange material
@@ -48,8 +48,8 @@ ATetrisBlock::ATetrisBlock()
 	// Create static mesh component
 	BlockMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BlockMesh0"));
 	BlockMesh->SetStaticMesh(CubeMeshRef);
-	BlockMesh->SetRelativeScale3D(0.3f*FVector(1.f,1.f,0.25f));
-	BlockMesh->SetRelativeLocation(FVector(0.f,0.f,25.f));
+	BlockMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 0.25f));
+	BlockMesh->SetRelativeLocation(FVector(0.0f, 0.0f, 25.0f));
 	BlockMesh->SetupAttachment(DummyRoot);
 	BlockMesh->SetMaterial(0, LedMaterial);
 	BlockMesh->OnClicked.AddDynamic(this, &ATetrisBlock::BlockClicked);
