@@ -52,32 +52,11 @@ ATetrisBlock::ATetrisBlock()
 	BlockMesh->SetRelativeLocation(FVector(0.0f, 0.0f, 25.0f));
 	BlockMesh->SetupAttachment(DummyRoot);
 	BlockMesh->SetMaterial(0, LedMaterial);
-	BlockMesh->OnClicked.AddDynamic(this, &ATetrisBlock::BlockClicked);
-	BlockMesh->OnInputTouchBegin.AddDynamic(this, &ATetrisBlock::OnFingerPressedBlock);
 
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.TickGroup = TG_PrePhysics;
 }
 
-void ATetrisBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
-{
-	HandleClicked();
-}
-
-
-void ATetrisBlock::OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent)
-{
-	HandleClicked();
-}
-
-void ATetrisBlock::HandleClicked()
-{
-	// Tell the Grid
-	if (OwningGrid != nullptr)
-	{
-		OwningGrid->AddScore();
-	}
-}
 
 void ATetrisBlock::Highlight(bool bOn)
 {

@@ -9,7 +9,7 @@
 namespace tc { struct Cell; }
 
 
-/** A block that can be clicked */
+/** A single Tertris grid cell */
 UCLASS(MinimalAPI)
 class ATetrisBlock : public AActor
 {
@@ -30,19 +30,9 @@ public:
 	UPROPERTY()
 	class ATetrisBlockGrid* OwningGrid;
 
-	/** Handle the block being clicked */
-	UFUNCTION()
-	void BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
-
-	/** Handle the block being touched  */
-	UFUNCTION()
-	void OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
-
 	virtual void Tick(float DeltaSeconds) override;
 
 	void SetCell(const tc::Cell* InReferredCell);
-
-	void HandleClicked();
 
 	void Highlight(bool bOn);
 
