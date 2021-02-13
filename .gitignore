@@ -1,6 +1,5 @@
-
-# Stuff versionned elsewhere
-Source/Tetris/core
+Source/Tetris/tc/
+Source/Tetris/tcs/
 
 ###########################################################
 # Visual Studio 2015 user specific files

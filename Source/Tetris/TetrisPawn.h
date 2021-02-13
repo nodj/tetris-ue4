@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "core/modes/GameMode.h"
-#include "core/details/GameplayInput.h"
+#include "tc/modes/GameMode.h"
+#include "tc/details/GameplayInput.h"
 #include "TetrisPawn.generated.h"
 
 UCLASS(config=Game)
