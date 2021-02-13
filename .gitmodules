@@ -1,0 +1,3 @@
+[submodule "tetris-core"]
+	path = Source/tetris-core
+	url = https://github.com/nodj/tetris-core.git
