@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include "core/TetrisHost.h"
+#include "tc/TetrisHost.h"
 
-#include "core/modes/GameMode.h"
+#include "tc/modes/GameMode.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"

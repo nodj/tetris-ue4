@@ -9,7 +9,7 @@
 #include "Materials/MaterialInstance.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "UObject/ConstructorHelpers.h"
-#include "core/details/Board.h"
+#include "tc/details/Board.h"
 
 template<typename U>
 U* FindAsset(const TCHAR* Path, bool bAssert=true)

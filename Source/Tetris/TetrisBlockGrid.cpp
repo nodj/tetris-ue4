@@ -5,7 +5,8 @@
 #include "TetrisBlock.h"
 #include "TetrisGameInstance.h"
 
-#include "core/modes/GameModeStandard.h"
+#include "tc/TetrisHost.h"
+#include "tc/modes/GameModeStandard.h"
 
 #include "Components/TextRenderComponent.h"
 #include "UObject/ConstructorHelpers.h"

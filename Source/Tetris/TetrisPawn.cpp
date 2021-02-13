@@ -6,7 +6,7 @@
 #include "TetrisGameInstance.h"
 #include "TetrisBlockGrid.h"
 
-#include "core/modes/GameMode.h"
+#include "tc/modes/GameMode.h"
 
 #include "Camera/CameraComponent.h"
 #include "DrawDebugHelpers.h"

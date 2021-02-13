@@ -8,24 +8,20 @@ public class Tetris : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-//         OptimizeCode = CodeOptimization.Never;
-//         bFasterWithoutUnity = true;
-//         PCHUsage = PCHUsageMode.NoPCHs;
+		PrivateIncludePaths.Add("tetris-core/include");
 
-        PrivateIncludePaths.Add("Tetris/core");
-
-        PublicDependencyModuleNames.AddRange(
-            new string[] {
-                "Core",
+		PublicDependencyModuleNames.AddRange(
+			new string[] {
+				"Core",
 				"CoreUObject",
 				"Engine",
 				"InputCore",
-            }
-        );
+			}
+		);
 
-        if (Target.bBuildEditor)
-        {
-            PrivateDependencyModuleNames.Add("UnrealEd");
-        }
-    }
+		if (Target.bBuildEditor)
+		{
+			PrivateDependencyModuleNames.Add("UnrealEd");
+		}
+	}
 }
