@@ -51,6 +51,8 @@ void ATetrisPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("HardDrop", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHardDropPressed);
 	PlayerInputComponent->BindAction("Hold", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHoldPressed);
 
+	PlayerInputComponent->BindAction("dbgDump", EInputEvent::IE_Pressed, this, &ATetrisPawn::OnHoldPressed);
+
 // 	PlayerInputComponent->BindAxis("MoveHzAxis", this, &ATetrisPawn::OnMoveHzAxis);
 }
 

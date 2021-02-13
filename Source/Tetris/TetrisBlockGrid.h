@@ -34,7 +34,10 @@ class ATetrisBlockGrid : public AActor
 public:
 	ATetrisBlockGrid();
 
-	UPROPERTY(Category=Score, BlueprintReadOnly)
+	UPROPERTY(Category=Actor, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	USceneComponent* RootComponentProperty;
+
+	UPROPERTY(Category=Score, VisibleAnywhere, BlueprintReadOnly)
 	FTetrisStats Stats;
 
 	/** Width of the grid */
@@ -62,13 +65,6 @@ public:
 
 	UPROPERTY(Category=Light, EditAnywhere)
 	float IntensityMove = 100.0f;
-
-	float GetIntensityForState(tc::Cell Model)
-	{
-		return Model.state
-			? Model.locked ? IntensityLocked : IntensityMove
-			: Model.phantom ? IntensityPhantom : 0.0f;
-	}
 
 	UPROPERTY(Category=Color, EditAnywhere)
 	FLinearColor ColorDefault = FColor::FromHex("FFE1AA");
@@ -99,6 +95,13 @@ public:
 		std::array<FLinearColor*, 7> Colors = { &ColorI, &ColorL, &ColorJ, &ColorS, &ColorZ, &ColorO, &ColorT };
 		uint8 NatureIndex = uint8(nature);
 		return NatureIndex < 7 ? *Colors[NatureIndex] : ColorDefault;
+	}
+
+	float GetIntensityForState(tc::Cell Model)
+	{
+		return Model.state
+			? Model.locked ? IntensityLocked : IntensityMove
+			: Model.phantom ? IntensityPhantom : 0.0f;
 	}
 
 protected:

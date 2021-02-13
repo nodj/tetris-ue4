@@ -26,8 +26,7 @@
 ATetrisBlockGrid::ATetrisBlockGrid()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("root"));
+	RootComponent = RootComponentProperty = CreateDefaultSubobject<USceneComponent>(TEXT("root"));
 }
 
 void ATetrisBlockGrid::BeginPlay()
